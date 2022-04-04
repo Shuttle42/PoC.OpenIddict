@@ -1,0 +1,17 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">PoC.Client</h1>
+     <br></br>
+    <form method="post">
+        <button id="login" asp-page-handler="get">Start auhtorize flow (get)</button>
+    </form>
+    <br></br>
+    <form method="post">
+        <button id="login" asp-page-handler="post">Start auhtorize flow (post)</button>
+    </form>
+</div>
