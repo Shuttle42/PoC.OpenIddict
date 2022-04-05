@@ -14,7 +14,7 @@ namespace DemoDmsServer.IdentityConfig
             {
                 SubjectId = "42100500",
                 Username = "mei",
-                Password = "dmsApiTest",
+                Password = "test",
                 Claims = new List<Claim>
                 {
                     new Claim(JwtClaimTypes.Email, "joschka@mycompany.com"),
