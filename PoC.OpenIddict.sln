@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoC.OpenIddict.Server", "PoC.OpenIddict.Server\PoC.OpenIddict.Server.csproj", "{7AE8A3A2-8776-41BE-917E-8C07D61EADBC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoC.OpnIddict.Client", "PoC.OpnIddict.Client\PoC.OpnIddict.Client.csproj", "{FEA3CCE9-EEED-43B7-8961-15DC1C2A102E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoC.OpenIddict.Client", "PoC.OpenIddict.Client\PoC.OpenIddict.Client.csproj", "{FEA3CCE9-EEED-43B7-8961-15DC1C2A102E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoC.ExternalIdP", "PoC.ExternalIdP\PoC.ExternalIdP.csproj", "{FBD7101E-515C-4851-8652-E9ECBF1E7E7C}"
 EndProject
