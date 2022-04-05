@@ -1,13 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using PoC.OpenIddict.Server.Data;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace PoC.OpenIddict.Server;
@@ -46,15 +40,6 @@ public class Startup
                 options.CallbackPath = "/signin-oidc";
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
-
-        services.Configure<IdentityOptions>(options =>
-        {
-            options.ClaimsIdentity.UserNameClaimType = Claims.Name;
-            options.ClaimsIdentity.UserIdClaimType = Claims.Subject;
-            options.ClaimsIdentity.RoleClaimType = Claims.Role;
-            options.ClaimsIdentity.EmailClaimType = Claims.Email;
-            options.SignIn.RequireConfirmedAccount = false;
-        });
 
         services.AddOpenIddict()
             .AddCore(options =>
