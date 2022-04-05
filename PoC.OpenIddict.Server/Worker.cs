@@ -33,7 +33,7 @@ public class Worker : IHostedService
                 ClientId = "gwClient",
                 ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
                 ConsentType = ConsentTypes.Implicit,
-                DisplayName = "Gateway Client application",
+                DisplayName = "Client application",
                 PostLogoutRedirectUris =
                 {
                     new Uri("https://localhost:7216/signout-callback-oidc")

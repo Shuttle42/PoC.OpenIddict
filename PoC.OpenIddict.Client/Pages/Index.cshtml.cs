@@ -10,7 +10,7 @@ namespace PoC.OpnIddict.Client.Pages
     {
         public static string? CodeVerifier { get; private set; }
         public string ClientUrl { get; set; } = "https://localhost:7216";
-        public string DmsApiGatewayUrl { get; set; } = "https://localhost:7063";
+        public string OpeniddictUrl { get; set; } = "https://localhost:7063";
         public static string Client { get; set; } = "gwClient";
 
         private readonly ILogger<IndexModel> _logger;
@@ -61,7 +61,7 @@ namespace PoC.OpnIddict.Client.Pages
                     { "myParam", "123" },
                 };
 
-                var redirectUrl = new UriBuilder(DmsApiGatewayUrl) { Path = "/connect/authorize", Query = queryBuilder.ToString() };
+                var redirectUrl = new UriBuilder(OpeniddictUrl) { Path = "/connect/authorize", Query = queryBuilder.ToString() };
                 return Redirect(redirectUrl.Uri.ToString());
             }
             else
@@ -86,7 +86,7 @@ namespace PoC.OpnIddict.Client.Pages
                 httpClientHandler.ServerCertificateCustomValidationCallback = (message, certificate2, arg3, arg4) => true;
                 using (var client = new HttpClient(httpClientHandler))
                 {
-                    var response = await client.PostAsync($"{DmsApiGatewayUrl}/connect/authorize", content);
+                    var response = await client.PostAsync($"{OpeniddictUrl}/connect/authorize", content);
                     if (response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.Found)
                     {
                         return Redirect(response.Headers.Location!.ToString());

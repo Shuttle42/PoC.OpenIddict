@@ -9,7 +9,7 @@ namespace PoC.OpnIddict.Client.Pages
     {
         public string? ResponseText { get; private set; }
 
-        private string DmsApiGatewayUrl = "https://localhost:7063";
+        private string OpeniddictUrl = "https://localhost:7063";
         public string ClientUrl { get; set; } = "https://localhost:7216";
 
         public async Task<ActionResult> OnGetAsync()
@@ -24,7 +24,7 @@ namespace PoC.OpnIddict.Client.Pages
             {
                 ClientId = "gwClient",
                 CodeVerifier = codeVerifier,
-                RequestUri = new Uri($"{DmsApiGatewayUrl}/connect/token"),
+                RequestUri = new Uri($"{OpeniddictUrl}/connect/token"),
                 RedirectUri = redirectUri,
                 ClientSecret = "901564A5-E7FE-42CB-B10D-61EF6A8F3654",
                 Code = code

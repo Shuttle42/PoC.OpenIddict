@@ -25,11 +25,6 @@ public class Startup
             options.UseOpenIddict();
         });
 
-        //services.AddIdentity<ApplicationUser, IdentityRole>()
-        //    .AddEntityFrameworkStores<ApplicationDbContext>()
-        //    .AddDefaultTokenProviders()
-        //    .AddDefaultUI();
-
         services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -49,7 +44,6 @@ public class Startup
                 options.UsePkce = true;
 
                 options.CallbackPath = "/signin-oidc";
-                //options.CallbackPath = "/callback"; 
                 options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
             });
 
@@ -63,28 +57,21 @@ public class Startup
         });
 
         services.AddOpenIddict()
-
-            // Register the OpenIddict core components.
             .AddCore(options =>
             {
                 options.UseEntityFrameworkCore()
                        .UseDbContext<DbContext>();
             })
-
-            // Register the OpenIddict server components.
             .AddServer(options =>
             {
-                // Enable the authorization and token endpoints.
                 options.SetAuthorizationEndpointUris("/connect/authorize")
                        .SetTokenEndpointUris("/connect/token");
 
-                // Mark the "email", "profile" and "roles" scopes as supported scopes.
                 options.RegisterScopes(Scopes.Email, Scopes.Profile, Scopes.Roles);
 
                 options.AllowAuthorizationCodeFlow();
                 options.DisableAccessTokenEncryption(); // for test purposes
 
-                // Register the signing and encryption credentials.
                 options.AddDevelopmentEncryptionCertificate()
                        .AddDevelopmentSigningCertificate();
 
@@ -97,15 +84,10 @@ public class Startup
             // Register the OpenIddict validation components.
             .AddValidation(options =>
             {
-                // Import the configuration from the local OpenIddict server instance.
                 options.UseLocalServer();
-
-                // Register the ASP.NET Core host.
                 options.UseAspNetCore();
             });
 
-        // Register the worker responsible of seeding the database.
-        // Note: in a real world application, this step should be part of a setup script.
         services.AddHostedService<Worker>();
     }
 
