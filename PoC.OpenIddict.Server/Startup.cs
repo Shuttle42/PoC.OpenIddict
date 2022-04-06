@@ -107,26 +107,4 @@ public class Startup
 
         app.UseWelcomePage();
     }
-
-    private Task RemoteAuthFail(RemoteFailureContext context) 
-    { 
-        context.Response.Redirect("https://localhost:7216/gwcallback" + context.Request.QueryString); 
-        context.HandleResponse(); 
-        return Task.CompletedTask; 
-    }
-
-    //private Task OnRedirectToIdentityProvider(RedirectContext redirectContext)
-    //{
-    //    if (redirectContext.Request.Path.StartsWithSegments("/connect"))
-    //    {
-    //        if (redirectContext.Response.StatusCode == (int)HttpStatusCode.OK)
-    //        {
-    //            redirectContext.ProtocolMessage.State = options.StateDataFormat.Protect(redirectContext.Properties);
-    //            redirectContext.Response.StatusCode = (int)HttpStatusCode.OK;
-    //            redirectContext.Response.Headers["Location"] = redirectContext.ProtocolMessage.CreateAuthenticationRequestUrl();
-    //        }
-    //        redirectContext.HandleResponse();
-    //    }
-    //    return Task.CompletedTask;
-    //}
 }
