@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using System.Net;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
 namespace PoC.OpenIddict.Server;
@@ -31,6 +33,8 @@ public class Startup
                 options.ClientId = "oidcDmsApi";
                 options.ClientSecret = "MySecret";
                 options.ResponseType = OpenIdConnectResponseType.Code;
+
+                options.AuthenticationMethod = OpenIdConnectRedirectBehavior.FormPost;
 
                 options.ResponseMode = "query";
                 options.Scope.Add("dmsApi.read");
@@ -63,7 +67,8 @@ public class Startup
                 options.UseAspNetCore()
                        .EnableTokenEndpointPassthrough()
                        .EnableAuthorizationEndpointPassthrough()
-                       .EnableStatusCodePagesIntegration(); // ??
+                       .EnableAuthorizationRequestCaching()
+                       .EnableStatusCodePagesIntegration(); 
             })
 
             // Register the OpenIddict validation components.
@@ -83,6 +88,8 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        app.UseCookiePolicy();
+
         app.UseHttpsRedirection();
         app.UseStaticFiles();
 
@@ -100,4 +107,26 @@ public class Startup
 
         app.UseWelcomePage();
     }
+
+    private Task RemoteAuthFail(RemoteFailureContext context) 
+    { 
+        context.Response.Redirect("https://localhost:7216/gwcallback" + context.Request.QueryString); 
+        context.HandleResponse(); 
+        return Task.CompletedTask; 
+    }
+
+    //private Task OnRedirectToIdentityProvider(RedirectContext redirectContext)
+    //{
+    //    if (redirectContext.Request.Path.StartsWithSegments("/connect"))
+    //    {
+    //        if (redirectContext.Response.StatusCode == (int)HttpStatusCode.OK)
+    //        {
+    //            redirectContext.ProtocolMessage.State = options.StateDataFormat.Protect(redirectContext.Properties);
+    //            redirectContext.Response.StatusCode = (int)HttpStatusCode.OK;
+    //            redirectContext.Response.Headers["Location"] = redirectContext.ProtocolMessage.CreateAuthenticationRequestUrl();
+    //        }
+    //        redirectContext.HandleResponse();
+    //    }
+    //    return Task.CompletedTask;
+    //}
 }
